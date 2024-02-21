@@ -11,5 +11,13 @@ public class BukuMain01 {
         bk1.terjual(5);
         bk1.gantiHarga(60000);
         bk1.tampilInformasi();
+
+        Buku bk2 = new Buku("Self Reward", "Maheera Ayesha", 160, 29, 59000);
+        bk2.terjual(11);
+        bk2.tampilInformasi();
+
+        Buku bukuAbdillah = new Buku("ALgoritma", "Abdillah", 100, 20, 50000);
+        bukuAbdillah.terjual(13);
+        bukuAbdillah.tampilInformasi();
     }
 }

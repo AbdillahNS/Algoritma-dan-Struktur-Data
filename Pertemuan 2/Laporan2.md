@@ -30,7 +30,7 @@ Hasil Percobaan
 3. Ada berapa method yang dimiliki oleh class tersebut? Sebutkan apa saja methodnya!<br>
    Jawab: Ada 4 Method yaitu tampilInformasi, terjual, restock dan gantiHarga<br>
 4. Perhatikan method terjual() yang terdapat di dalam class Buku. Modifikasi isi method tersebut sehingga proses pengurangan hanya dapat dilakukan jika stok masih ada (lebih besar dari 0)!<br>
-   Jawab: Hasil Modidikasi
+   Jawab: Hasil Modidikasi<br>
    ![alt text](docs/img/P1S4.png)
 5. Menurut Anda, mengapa method restock() mempunyai satu parameter berupa bilangan int?<br>
    Jawab: Agar pengguna dibatasi dengan input nilai berupa int(bilangan bulat)
@@ -76,12 +76,142 @@ Hasil Percobaan BukuMain dan Outputnya
    **Buku bk2 = new Buku("Self Reward", "Maheera Ayesha", 160, 29, 59000);**<br>
    Jawab: Baris program tersebut membuat objek baru dari class buku dengan nama bk2. objek bk2 memiliki nilai sebagai berikut: judul= Self Reward, pengarang= Maheera Ayesha, halaman= 160, stok= 29, harga= 59000.<br>
 3. Hapus konstruktor default pada class Buku, kemudian compile dan run program. Bagaimana hasilnya? Jelaskan mengapa hasilnya demikian!<br>
-   Jawab: Akan terjadi eror, karena tidak ada cara untuk membuat objek bari dari class **Buku**
+   Jawab: Akan terjadi eror, karena tidak ada cara untuk membuat objek bari dari class **Buku**<br>
    ![![alt text](image.png)](docs/img/P3S3.png)
 4. Setelah melakukan instansiasi object, apakah method di dalam class Buku harus diakses secara berurutan? Jelaskan alasannya!<br>
    Jawab: Tidak, method didalam class Buku tidak harus diakses secara berurutan. akses method dalam class tidak tergantung pada urutan<br>
 5. Buat object baru dengan nama buku**NamaMahasiswa** menggunakan konstruktor
    berparameter dari class Buku!<br>
-   Jawab: ![alt text](docs/img/P3S5.png)
+   Jawab:<br> ![alt text](docs/img/P3S5.png)
 
 ### Latihan Praktikum
+
+1. Modifikasi Buku01.java Latihan praktikum
+
+```java
+class Buku01 {
+    String judul, pengarang;
+    int halaman, stok, harga, terjual;
+
+    public Buku01() {
+
+    }
+
+    public Buku01(String jud, String pg, int hal, int stok, int har) {
+        judul = jud;
+        pengarang = pg;
+        halaman = hal;
+        this.stok = stok;
+        harga = har;
+    }
+
+    void tampilInformasi() {
+        System.out.println("Judul: " + judul);
+        System.out.println("Pengarang: " + pengarang);
+        System.out.println("Jumlah halaman: " + halaman);
+        System.out.println("Sisa stok: " + stok);
+        System.out.println("Harga: Rp " + harga);
+    }
+
+    void terjual(int jml) {
+        if (stok > 0 && stok >= jml) {
+            stok -= jml;
+            terjual = jml;
+        } else {
+            System.out.println("Stok buku " + judul + " sudah habis.");
+        }
+    }
+
+    void restock(int jml) {
+        stok += jml;
+    }
+
+    void gantiHarga(int hrg) {
+        harga = hrg;
+    }
+
+    int hitungHargaTotal() {
+        return terjual * harga;
+    }
+
+    int hitungDiskon() {
+        int totalHarga = hitungHargaTotal();
+        double diskon = 0;
+
+        if (totalHarga > 150000) {
+            diskon = 0.12;
+        } else if (totalHarga >= 75000) {
+            diskon = 0.05;
+        }
+        return (int) (totalHarga * diskon);
+    }
+
+    int hitungHargaBayar() {
+        int totalHarga = hitungHargaTotal();
+        int diskon = hitungDiskon();
+        return totalHarga - diskon;
+    }
+}
+```
+
+2. Hasil Latihan praktikum class Dragon
+
+```java
+class Dragon {
+    int x, y, width, height;
+
+    Dragon(int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+
+    void moveLeft() {
+        x--;
+        if (x < 0) {
+            detectCollision();
+        }
+    }
+
+    void moveRight() {
+        x++;
+        if (x > width) {
+            detectCollision();
+        }
+    }
+
+    void moveUp() {
+        y--;
+        if (y < 0) {
+            detectCollision();
+        }
+    }
+
+    void moveDown() {
+        y++;
+        if (y > height) {
+            detectCollision();
+        }
+    }
+
+    void printPosition() {
+        System.out.println("Posisi Dragon: (" + x + ", " + y + ")");
+    }
+
+    void detectCollision() {
+        System.out.println("Game Over");
+    }
+}
+
+public class Dragon01 {
+    public static void main(String[] args) {
+        Dragon dragon = new Dragon(3, 3, 5, 5);
+
+        dragon.printPosition();
+        dragon.moveRight();
+        dragon.moveRight();
+        dragon.moveRight();
+    }
+}
+```

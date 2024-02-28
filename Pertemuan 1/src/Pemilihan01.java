@@ -59,7 +59,7 @@ public class Pemilihan01 {
         }
     }
 
-    // Cek nilai valid 0-100
+    // Cek nilai valid 0 sampai 100
     public static boolean isValid(double nilai) {
         return nilai >= 0 && nilai <= 100;
     }

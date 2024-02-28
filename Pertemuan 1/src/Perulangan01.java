@@ -7,7 +7,7 @@ public class Perulangan01 {
         System.out.print("Masukkan NIM: ");
         String nim = sc.nextLine();
 
-        // Mendapatkan dua digit terakhir dari NIM
+        // Mendapatkan 2 digit terakhir dari NIM
         int n = Integer.parseInt(nim.substring(nim.length() - 2));
 
         if (n < 10) {

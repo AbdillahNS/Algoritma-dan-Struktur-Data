@@ -21,7 +21,7 @@ public class BukuMain01 {
         bukuAbdillah.terjual(13);
         bukuAbdillah.tampilInformasi();
         System.out.println("Total Harga: RP" + bukuAbdillah.hitungHargaTotal());
-        System.out.println("Diskon : " + bukuAbdillah.hitungDiskon());
+        System.out.println("Diskon: " + bukuAbdillah.hitungDiskon());
         System.out.println("Total Harga: RP" + bukuAbdillah.hitungHargaBayar());
     }
 }

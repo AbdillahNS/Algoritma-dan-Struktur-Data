@@ -354,3 +354,189 @@ Outputnya <br>
     ![alt text](docs/img/OP5.png)
 
 ### Latihan
+
+Latihan 1
+
+Hasil Latihan
+
+Class Kerucut
+
+```java
+public class Kerucut01 {
+    double jariJari;
+    double sisiMiring;
+
+    Kerucut01(double jariJari, double sisiMiring) {
+        this.jariJari = jariJari;
+        this.sisiMiring = sisiMiring;
+    }
+
+    double hitungLuasPermukaan() {
+        return Math.PI * jariJari * (jariJari + sisiMiring);
+    }
+
+    double hitungVolume() {
+        return (1.0 / 3.0) * Math.PI * jariJari * jariJari * sisiMiring;
+    }
+}
+```
+
+Class Limas Segi Empat Sama Sisi
+
+```java
+public class LimasSegiEmpat01 {
+    double sisiAlas;
+    double tinggiLimas;
+
+    LimasSegiEmpat01(double sisiAlas, double tinggiLimas) {
+        this.sisiAlas = sisiAlas;
+        this.tinggiLimas = tinggiLimas;
+    }
+
+    double hitungLuasPermukaan() {
+        double luasAlas = sisiAlas * sisiAlas;
+        double luasSegitiga = (sisiAlas - tinggiLimas) / 2;
+        return luasAlas + 4 * luasSegitiga;
+    }
+
+    double hitungVolume() {
+        return (1.0 / 3.0) * sisiAlas * sisiAlas * tinggiLimas;
+    }
+}
+```
+
+Class Bola
+
+```java
+public class Bola01 {
+    double jariJari;
+
+    Bola01(double jariJari) {
+        this.jariJari = jariJari;
+    }
+
+    double hitungLuasPermukaan() {
+        return 4 * Math.PI * jariJari * jariJari;
+    }
+
+    double hitungVolume() {
+        return (4.0 / 3.0) * Math.PI * jariJari * jariJari * jariJari;
+    }
+}
+```
+
+Main Latihan 1
+
+```java
+import java.util.Scanner;
+
+public class ArrayLatihan01 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Masukkan jumlah bangun ruang: ");
+        int jumlahBangunRuang = scanner.nextInt();
+
+        Object[] bangunRuangArray = new Object[jumlahBangunRuang];
+
+        for (int i = 0; i < jumlahBangunRuang; i++) {
+            System.out.println("\nBangun Ruang ke-" + (i + 1));
+            System.out.print("Pilih jenis bangun ruang (1. Kerucut, 2. Limas Segi Empat, 3. Bola): ");
+            int pilihan = scanner.nextInt();
+
+            switch (pilihan) {
+                case 1:
+                    System.out.print("Masukkan jari-jari kerucut: ");
+                    double jariJariKerucut = scanner.nextDouble();
+                    System.out.print("Masukkan sisi miring kerucut: ");
+                    double sisiMiringKerucut = scanner.nextDouble();
+                    bangunRuangArray[i] = new Kerucut01(jariJariKerucut, sisiMiringKerucut);
+                    break;
+                case 2:
+                    System.out.print("Masukkan panjang sisi alas limas: ");
+                    double panjangSisiAlasLimas = scanner.nextDouble();
+                    System.out.print("Masukkan tinggi limas: ");
+                    double tinggiLimas = scanner.nextDouble();
+                    bangunRuangArray[i] = new LimasSegiEmpat01(panjangSisiAlasLimas, tinggiLimas);
+                    break;
+                case 3:
+                    System.out.print("Masukkan jari-jari bola: ");
+                    double jariJariBola = scanner.nextDouble();
+                    bangunRuangArray[i] = new Bola01(jariJariBola);
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid.");
+                    i--;
+                    break;
+            }
+        }
+
+        System.out.println("\nHasil Perhitungan:");
+        for (int i = 0; i < jumlahBangunRuang; i++) {
+            System.out.println("\nBangun Ruang ke-" + (i + 1));
+            if (bangunRuangArray[i] instanceof Kerucut01) {
+                Kerucut01 kerucut = (Kerucut01) bangunRuangArray[i];
+                System.out.println("Luas Permukaan: " + kerucut.hitungLuasPermukaan());
+                System.out.println("Volume: " + kerucut.hitungVolume());
+            } else if (bangunRuangArray[i] instanceof LimasSegiEmpat01) {
+                LimasSegiEmpat01 limas = (LimasSegiEmpat01) bangunRuangArray[i];
+                System.out.println("Luas Permukaan: " + limas.hitungLuasPermukaan());
+                System.out.println("Volume: " + limas.hitungVolume());
+            } else if (bangunRuangArray[i] instanceof Bola01) {
+                Bola01 bola = (Bola01) bangunRuangArray[i];
+                System.out.println("Luas Permukaan: " + bola.hitungLuasPermukaan());
+                System.out.println("Volume: " + bola.hitungVolume());
+            }
+        }
+    }
+}
+```
+
+Outputnya<br>
+
+![![alt text](image.png)](docs/img/OP6.png)
+
+Latihan 2
+
+Hasil Latihan
+
+```java
+import java.util.Scanner;
+
+public class InformasiMahasiswa01 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int jumlahMahasiswa = 3;
+
+        String[] nama = new String[jumlahMahasiswa];
+        String[] nim = new String[jumlahMahasiswa];
+        char[] jenisKelamin = new char[jumlahMahasiswa];
+        double[] ipk = new double[jumlahMahasiswa];
+
+        for (int i = 0; i < jumlahMahasiswa; i++) {
+            System.out.println("Masukkan data mahasiswa ke-" + (i + 1));
+            System.out.print("Masukkan nama: ");
+            nama[i] = scanner.next();
+            System.out.print("Masukkan nim: ");
+            nim[i] = scanner.next();
+            System.out.print("Masukkan jenis kelamin (P/L): ");
+            jenisKelamin[i] = scanner.next().charAt(0);
+            System.out.print("Masukkan IPK: ");
+            ipk[i] = scanner.nextDouble();
+        }
+
+        for (int i = 0; i < jumlahMahasiswa; i++) {
+            System.out.println("\nData Mahasiswa ke-" + (i + 1));
+            System.out.println("Nama: " + nama[i]);
+            System.out.println("NIM: " + nim[i]);
+            System.out.println("Jenis kelamin: " + jenisKelamin[i]);
+            System.out.println("Nilai IPK: " + ipk[i]);
+        }
+    }
+}
+```
+
+Latihan 3
+
+Hasil Latihan

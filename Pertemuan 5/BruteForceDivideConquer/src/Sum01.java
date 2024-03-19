@@ -1,6 +1,7 @@
 public class Sum01 {
     int elemen;
-    double keuntungan[], total;
+    double[] keuntungan;
+    double total;
 
     Sum01(int elemen) {
         this.elemen = elemen;
@@ -8,20 +9,25 @@ public class Sum01 {
         this.total = 0;
     }
 
-    double totalBF(double arr[]) {
+    public void setKeuntungan(double[] keuntungan) {
+        this.keuntungan = keuntungan;
+    }
+
+    double totalBF() {
+        total = 0;
         for (int i = 0; i < elemen; i++) {
-            total = total + arr[i];
+            total = total + keuntungan[i];
         }
         return total;
     }
 
-    double totalDC(double arr[], int l, int r) {
+    double totalDC(int l, int r) {
         if (l == r) {
-            return arr[l];
+            return keuntungan[l];
         } else if (l < r) {
             int mid = (l + r) / 2;
-            double lsum = totalDC(arr, l, mid);
-            double rsum = totalDC(arr, mid + 1, r);
+            double lsum = totalDC(l, mid);
+            double rsum = totalDC(mid + 1, r);
             return lsum + rsum;
         }
         return 0;

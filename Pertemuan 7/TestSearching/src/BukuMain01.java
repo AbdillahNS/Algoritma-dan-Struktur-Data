@@ -27,24 +27,38 @@ public class BukuMain01 {
             data.tambah(m);
         }
         System.out.println("-----------------------------------------------------------");
-        System.out.println("Data keseluruhan Mahasiswa : ");
-        System.out.println("-----------------------------------------------------------");
         System.out.println("Data keseluruhan Buku : ");
         data.tampil();
         System.out.println("___________________________________________________________");
         System.out.println("___________________________________________________________");
         System.out.println("Pencarian Data : ");
-        System.out.println("Masukkan Kode Buku yang dicari : ");
-        System.out.print("Kode Buku : ");
-        String cari = s1.nextLine();
-        System.out.println("Menggunakan sequential Search");
-        int posisi = data.FindSeqSearch(cari);
-        data.Tampilposisi(cari, posisi);
-        data.TampilData(cari, posisi);
-        System.out.println("==============================");
-        System.out.println("Menggunakan binary Search");
-        posisi = data.FindBinarySearch(cari, 0, jumBuku - 1);
-        data.Tampilposisi(cari, posisi);
-        data.TampilData(cari, posisi);
+        System.out.println("1. Cari berdasarkan Kode Buku");
+        System.out.println("2. Cari berdasarkan Judul Buku");
+        System.out.print("Pilihan Anda: ");
+        int pilihan = s.nextInt();
+
+        switch (pilihan) {
+            case 1:
+                System.out.println("Masukkan Kode Buku yang dicari : ");
+                System.out.print("Kode Buku : ");
+                String cariKode = s1.nextLine();
+                System.out.println("Menggunakan sequential search:");
+                int posisiKodeSeq = data.FindSeqSearch(cariKode);
+                data.Tampilposisi(cariKode, posisiKodeSeq);
+                data.TampilData(cariKode, posisiKodeSeq);
+                System.out.println("\nMenggunakan binary search:");
+                int posisiKodeBin = data.FindBinarySearch(cariKode, 0, jumBuku - 1);
+                data.Tampilposisi(cariKode, posisiKodeBin);
+                data.TampilData(cariKode, posisiKodeBin);
+                break;
+            case 2:
+                System.out.println("Masukkan Judul Buku yang dicari : ");
+                System.out.print("Judul Buku : ");
+                String cariJudul = s1.nextLine();
+                data.CariJudulBuku(cariJudul);
+                break;
+            default:
+                System.out.println("Pilihan tidak valid!");
+        }
     }
 }

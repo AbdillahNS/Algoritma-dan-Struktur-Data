@@ -275,7 +275,7 @@ Output<br>
 
 ### Pertanyaan
 1. Mengapa digunakan keyword break pada fungsi remove? Jelaskan!<br>
-Jawab : Untuk menghentikan loop setelah elemen yang cocok dengan key ditemukan dan dihapus
+Jawab : Untuk menghentikan loop setelah elemen yang cocok dengan key ditemukan lalu dihapus
 2. Jelaskan kegunaan kode dibawah pada method remove
 ```java
 else if (temp.next.data == key) {
@@ -287,6 +287,220 @@ Jawab : kode tersebut digunakan untuk mencarin nilai node yang memiliki nilai ya
 
 1. Implementasikan ilustrasi Linked List Berikut. Gunakan 4 macam penambahan data yang telah dipelajari sebelumnya untuk menginputkan data.<br>
 ![alt text](<docs/img/Soal Tugas.png>)
-2. Buatlah implementasi program antrian layanan unit kemahasiswaan sesuai dengan kondisi yang ditunjukkan pada soal nomor 1! Ketentuan
-a. Implementasi antrian menggunakan Queue berbasis Linked List!
-b. Program merupakan proyek baru, bukan modifikasi dari soal nomor 1!
+
+Jawab:<br> 
+Class Mahasiswa01
+```java
+package Tugas;
+public class Mahasiswa01 {
+    String nim, nama;
+    Mahasiswa01 next;
+
+    Mahasiswa01(String nim, String nama, Mahasiswa01 next) {
+        this.nim = nim;
+        this.nama = nama;
+        this.next = next;
+    }
+}
+```
+
+Class SingleLinkedList01
+```java
+package Tugas;
+
+public class SingleLinkedList01 {
+    Mahasiswa01 head, tail;
+
+    boolean isEmpty() {
+        return head == null;
+    }
+
+    void print() {
+        if (isEmpty()) {
+            System.out.println("Linked List kosong");
+        } else {
+            Mahasiswa01 tmp = head;
+            System.out.println("Linked list:");
+            while (tmp != null) {
+                System.out.println("NIM: " + tmp.nim + ", Nama: " + tmp.nama);
+                tmp = tmp.next;
+            }
+        }
+    }
+    
+    void addFirst(String nim, String nama) {
+        Mahasiswa01 ndInput = new Mahasiswa01(nim, nama, null);
+        if (isEmpty()) {
+            head = ndInput;
+            tail = ndInput;
+        } else {
+            ndInput.next = head;
+            head = ndInput;
+        }
+    }
+
+    void addLast(String nim, String nama) {
+        Mahasiswa01 ndInput = new Mahasiswa01(nim, nama, null);
+        if (isEmpty()) {
+            head = ndInput;
+            tail = ndInput;
+        } else {
+            tail.next = ndInput;   
+            tail = ndInput;
+        }
+    }
+
+    void insertAfter(String key, String nim, String nama) {
+        Mahasiswa01 ndInput = new Mahasiswa01(nim, nama, null);
+        Mahasiswa01 temp = head;
+        while (temp != null) {
+            if (temp.nim.equals(key)) {
+                ndInput.next = temp.next;
+                temp.next = ndInput;
+                if (ndInput.next == null) {
+                    tail = ndInput;
+                }
+                break;
+            }
+            temp = temp.next;
+        }
+    }
+
+    void insertAt(int index, String nim, String nama) {
+        if (index < 0) {
+            System.out.println("Indeks tidak valid");
+            return;
+        } else if (index == 0) {
+            addFirst(nim, nama);
+            return;
+        } else {
+            Mahasiswa01 ndInput = new Mahasiswa01(nim, nama, null);
+            Mahasiswa01 temp = head;
+            for (int i = 0; i < index - 1; i++) {
+                if (temp.next == null) {
+                    System.out.println("Indeks tidak valid");
+                    return;
+                }
+                temp = temp.next;
+            }
+            ndInput.next = temp.next;
+            temp.next = ndInput;
+            if (ndInput.next == null) {
+                tail = ndInput;
+            }
+        }
+    }
+}
+```
+
+Class SLLMain01
+```java
+package Tugas;
+
+public class SLLMain01 {
+    public static void main(String[] args) {
+        SingleLinkedList01 singLL = new SingleLinkedList01();
+
+        singLL.addFirst("111", "Anton");
+        singLL.addLast("115", "Sari");
+        singLL.insertAfter("111", "112", "Prita");
+        singLL.insertAfter("112", "113", "Yusuf");
+        singLL.insertAt(3, "114", "Doni");
+
+        singLL.print();
+    }
+}
+```
+
+Output<br>
+![alt text](<docs/img/OP Tugas1.png>)<br>
+2. Buatlah implementasi program antrian layanan unit kemahasiswaan sesuai dengan kondisi yang ditunjukkan pada soal nomor 1! Ketentuan<br>
+a. Implementasi antrian menggunakan Queue berbasis Linked List!<br>
+b. Program merupakan proyek baru, bukan modifikasi dari soal nomor 1!<br>
+Jawab : <br>
+Class Mahasiswa201
+```java
+package Tugas.Nomor2;
+    public class Mahasiswa201 {
+        String nim, nama;
+        Mahasiswa201 next;
+    
+        Mahasiswa201(String nim, String nama, Mahasiswa201 next) {
+            this.nim = nim;
+            this.nama = nama;
+            this.next = next;
+    }
+}
+```
+
+Class Queue01
+```java
+package Tugas.Nomor2;
+
+public class Queue01 {
+    Mahasiswa201 front, rear;
+
+    boolean isEmpty() {
+        return front == null;
+    }
+
+    void enqueue(String nim, String nama) {
+        Mahasiswa201 newMhs = new Mahasiswa201(nim, nama, null);
+        if (isEmpty()) {
+            front = rear = newMhs;
+        } else {
+            rear.next = newMhs;
+            rear = newMhs;
+        }
+    }
+
+    void dequeue() {
+        if (isEmpty()) {
+            System.out.println("Antrian kosong");
+        } else {
+            front = front.next;
+            if (front == null) {
+                rear = null;
+            }
+        }
+    }
+
+    void print() {
+        if (isEmpty()) {
+            System.out.println("Antrian kosong");
+        } else {
+            Mahasiswa201 tmp = front;
+            System.out.println("Antrian: ");
+            while (tmp != null) {
+                System.out.println("NIM: " + tmp.nim + ", Nama: " + tmp.nama);
+                tmp = tmp.next;
+            }
+        }
+    }
+}
+```
+
+Class QueueMain01
+```java
+package Tugas.Nomor2;
+
+public class QueueMain01 {
+    public static void main(String[] args) {
+        Queue01 queue = new Queue01();
+
+        queue.enqueue("111", "Anton");
+        queue.enqueue("112", "Prita");
+        queue.enqueue("113", "Yusuf");
+        queue.enqueue("114", "Doni");
+        queue.enqueue("115", "Sari");
+        queue.print();
+
+        System.out.println("Mengeluarkan Mahasiswa di antrian pertama");
+        queue.dequeue();
+        queue.print();
+    }
+}
+```
+
+Output<br>
+![alt text](<docs/img/OP Tugas2.png>)

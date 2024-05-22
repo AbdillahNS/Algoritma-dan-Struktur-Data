@@ -232,7 +232,7 @@ public static void main(String[] args) {
 Menampilkan Klasemen<br>
 ![alt text](img/docs/OP1.png)
 
-Mengupdate Klasemen terbaru dengan memasukkan detail pertandingan<br>
+Mengupdate Klasemen terbaru dengan memasukkan detail pertandingan (Aturannya yaitu yang menang +2 poin dan yang kalah +1 poin)<br>
 ![alt text](img/docs/OP2.png)
 
 Menampilkan Klasemen terbaru setelah diupdate (Rajawali dan RANS telah bertambah poin)<br>

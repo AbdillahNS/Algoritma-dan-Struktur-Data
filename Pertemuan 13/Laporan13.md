@@ -374,6 +374,7 @@ while (i < index) {
 Jawab : Perbedaan antara fungsi add pada DLL dan SLL terletak pada kompleksitas waktu operasi penambahan di berbagai posisi dalam list. DLL memiliki fleksibilitas lebih besar untuk menambahkan elemen di tengah list dengan kompleksitas waktu yang tetap efisien, sementara SLL memiliki kompleksitas waktu yang lebih rendah untuk penambahan di depan list.<br>
 
 4. Jelaskan perbedaan logika dari kedua kode program di bawah ini!<br>
+
 A
 ```java
 public boolean isEmpty(){
@@ -394,3 +395,536 @@ Jawab : <br>
 - Kode program A menggunakan variabel size untuk menentukan apakah linked list kosong atau tidak, sedangkan kode program B menggunakan variabel head.
 - Kode program A bergantung pada jumlah elemen (size) dalam linked list, sementara kode program B bergantung pada keberadaan node pertama (head).
 - Kode program B memiliki logika yang lebih langsung dan efisien, karena langsung memeriksa keberadaan node pertama, sementara kode program A memerlukan variabel tambahan (size) dan operasi perbandingan.
+
+### Tugas Praktikum
+
+1.  Buat program antrian vaksinasi menggunakan queue berbasis double linked list sesuai ilustrasi
+dan menu di bawah ini! (counter jumlah antrian tersisa di menu cetak(3) dan data orang yang
+telah divaksinasi di menu Hapus Data(2) harus ada)<br>
+
+Class Vaksin
+```java
+package Tugas;
+
+public class Vaksin {
+        int nomor;
+        String nama;
+        Vaksin prev, next;
+    
+        Vaksin(Vaksin prev, int no, String nama, Vaksin next) {
+            this.prev = prev;
+            nomor = no;
+            this.nama = nama;
+            this.next = next;
+    }
+}
+```
+
+Class DLLVaksin
+```java
+package Tugas;
+
+public class DLLVaksin {
+    Vaksin head;
+    int size;
+
+    public DLLVaksin() {
+        head = null;
+        size = 0;
+    }
+
+    public boolean isEmpty() {
+        return head == null;
+    }
+
+    public void addFirst(int no, String nama) {
+        if (isEmpty()) {
+            head = new Vaksin(null, no, nama, null);
+        } else {
+            Vaksin newNode = new Vaksin(null, no, nama, head);
+            head.prev = newNode;
+            head = newNode;
+        }
+        size++;
+    }
+
+    public void addLast(int no, String nama) {
+        if (isEmpty()) {
+            addFirst(no, nama);
+        } else {
+            Vaksin current = head;
+            while (current.next != null) {
+                current = current.next;     
+            }
+            Vaksin newNode = new Vaksin(current, no, nama, null);
+            current.next = newNode;
+            size++;
+        }
+    }
+
+    public int size() {
+        return size;    
+    }
+
+    public void print() {
+        if (!isEmpty()) {
+            Vaksin tmp = head;
+            System.out.println("++++++++++++++++++++++++");
+            System.out.println("Daftar Pengantri Vaksin");
+            System.out.println("++++++++++++++++++++++++");
+            System.out.println("|No." + "\t" + "|Nama" + "\t" + "|");
+            while (tmp != null) {
+                System.out.println("|" + tmp.nomor + "\t" + "|" + tmp.nama + "\t" + "|");
+                tmp = tmp.next;
+            }
+            System.out.printf("Sisa Antrian: %d\n", size);
+        } else {
+            System.out.println("Antrian masih kosong!");
+        }
+    }
+
+    void Enqueue(int no, String nama) {
+        if (isEmpty()) {
+            addFirst(no, nama);
+        } else {
+            addLast(no, nama);
+        }
+    }
+
+    Vaksin Dequeue() {
+        if (isEmpty()) {
+            System.out.println("Antrian masih kosong, tidak dapat dihapus!");
+            return null;
+        } else if (size == 1) {
+            Vaksin eq = head;
+            head = null;
+            size --;
+            return eq;
+        } else {
+            Vaksin eq = head;
+            head = head.next;
+            head.prev = null;
+            size--;
+            return eq;
+        }      
+    }
+}
+```
+
+Class DLLVaksinMain
+```java
+package Tugas;
+
+import java.util.Scanner;
+
+public class DLLVaksinMain {
+    public static void menu() {
+        System.out.println("+++++++++++++++++++++++++++++++");
+        System.out.println(" PENGANTRI VAKSIN EXTRAVAGANZA");
+        System.out.println("+++++++++++++++++++++++++++++++");
+        System.out.println("\n1. Tambah Data Penerima Vaksin");
+        System.out.println("2. Hapus Data Pengantri Vaksin");
+        System.out.println("3. Daftar Penerima Vaksin");
+        System.out.println("4. Keluar");
+        System.out.println("+++++++++++++++++++++++++++++");
+    }    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Scanner s = new Scanner(System.in);
+        DLLVaksin vaksinQueue = new DLLVaksin();
+
+        short pilih;
+
+        do {
+            menu();
+            pilih = sc.nextShort();
+            switch (pilih) {
+                case 1:
+                    System.out.println("-----------------------------");
+                    System.out.println("Masukkan Data Penerima Vaksin");
+                    System.out.println("-----------------------------");
+                    System.out.println("Nomor Antrian: ");
+                    int no = sc.nextInt();
+                    System.out.println("Nama Penerima: ");
+                    String nama = s.nextLine();
+                    vaksinQueue.Enqueue(no, nama);
+                    break;
+                case 2:
+                    Vaksin data = vaksinQueue.Dequeue();
+                    if (data != null) {
+                        System.out.println(data.nama + " telah selesai di vaksinasi.");
+                    } 
+                    vaksinQueue.print();
+                    break;
+                case 3:
+                    vaksinQueue.print();
+                    break;
+                case 4:
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Menu yang Anda masukkan tidak valid!");
+                    break;
+            }
+        } while (pilih == 1 || pilih == 2 || pilih == 3 || pilih == 4);
+    }
+}
+```
+
+Output<br>
+Penambahan Data<br>
+![alt text](docs/img/OPT1.1.png)
+
+Cetak Data<br>
+![alt text](docs/img/OPT1.2.png)
+
+Hapus Data<br>
+![alt text](docs/img/OPT1.3.png)
+
+2. Buatlah program daftar film yang terdiri dari id, judul dan rating menggunakan double linked
+lists, bentuk program memiliki fitur pencarian melalui ID Film dan pengurutan Rating secara
+descending. Class Film wajib diimplementasikan dalam soal ini.
+
+Class Film
+```java
+package Tugas;
+
+public class Film {
+    int id;
+    String judul;
+    double rating;
+    Film prev, next;
+
+    Film(Film prev, int id, String judul, double rate, Film next) {
+        this.prev = prev;
+        this.id = id;
+        this.judul = judul;
+        rating = rate;
+        this.next = next;
+    }
+}
+```
+
+Class DLLFilm
+```java
+package Tugas;
+
+public class DLLFilm {
+    Film head;
+    int size;
+
+    public DLLFilm() {
+        head = null;
+        size = 0;
+    }
+
+    public boolean isEmpty() {
+        return head == null;
+    }
+
+    public void addFirst(int id, String judul, double rate) {
+        if (isEmpty()) {
+            head = new Film(null, id, judul, rate, null);
+        } else {
+            Film newNode = new Film(null, id, judul, rate, head);
+            head.prev = newNode;
+            head = newNode;
+        }
+        size++;
+    }
+
+    public void addLast(int id, String judul, double rate) {
+        if (isEmpty()) {
+            addFirst(id, judul, rate);
+        } else {
+            Film current = head;
+            while (current.next != null) {
+                current = current.next;     
+            }
+            Film newNode = new Film(current, id, judul, rate, null);
+            current.next = newNode;
+            size++;
+        }
+    }
+
+    public void add(int id, String judul, double rate, int index) throws Exception {
+        if (isEmpty()) {
+            addFirst(id, judul, rate);     
+        } else if (index < 0 || index > size) {
+            throw new Exception("Nilai indeks di luar batas");
+        } else {
+            Film current = head;
+            int i = 0;
+            while (i < index) {
+                current = current.next;
+                i++;
+            }
+            if (current.prev == null) {
+                Film newNode = new Film(null, id, judul, rate, current);
+                current.prev = newNode;
+                head = newNode;
+            } else {
+                Film newNode = new Film(current.prev, id, judul, rate, current);
+                newNode.prev = current.prev;
+                newNode.next = current;
+                current.prev.next = newNode;
+                current.prev = newNode;
+            }
+        }
+        size++;
+    }
+
+    public int size() {
+        return size;    
+    }
+
+    public void print() {
+        if (!isEmpty()) {
+            Film tmp = head;
+            while (tmp != null) {
+                System.out.println("ID: " + tmp.id);
+                System.out.println(" Judul Film: " + tmp.judul);
+                System.out.println(" Rating Film: " + tmp.rating);
+                tmp = tmp.next;
+            }
+        } else {
+            System.out.println("Daftar Film masih kosong");
+        }
+    }
+
+    public void removeFirst() throws Exception {
+        if (isEmpty()) {
+            throw new Exception("Daftar Film masih kosong, tidak dapat dihapus!");
+        } else if (size == 1) {
+            removeLast();
+        } else {
+            head = head.next;
+            head.prev = null;
+            size--;
+        }
+    }
+
+    public void removeLast() throws Exception {
+        if (isEmpty()) {
+            throw new Exception("Daftar Film masih kosong, tidak dapat dihapus!");
+        } else if (head.next == null) {
+            head = null;
+            size --;
+            return;
+        } 
+        Film current = head;
+        while (current.next.next != null) {
+            current = current.next;     
+        }
+        current.next = null;
+        size--;
+    }
+
+    public void remove(int index) throws Exception {
+        if (isEmpty() || index >= size) {
+            throw new Exception("Nilai indeks diluar batas");
+        } else if (index == 0) {
+            removeFirst();
+        } else {
+            Film current = head;
+            int i = 0;
+            while (i < index) {
+                current = current.next;
+                i++;
+            }
+            if (current.next == null) {
+                current.prev.next = null;
+            } else if (current.prev == null) {
+                current = current.next;
+                current.prev = null;
+                head = current;
+            } else {
+                current.prev.next = current.next;
+                current.next.prev = current.prev;
+            }
+            size--;
+        }
+    }
+
+    public Film findFilm(int key) {
+        Film temp = head;
+            while (temp != null) {
+                if (temp.id == key) {
+                    break;
+                }
+                temp = temp.next;
+            }
+        return temp;
+    }
+
+    public int findIdx(int key) {
+        Film temp = head;
+        int i = 0;
+            while (temp != null) {
+                if (temp.id == key) {
+                    break;
+                }
+                temp = temp.next;
+                i++;
+            }
+        return i;
+    }
+
+    public void sortDesc() {
+        if (!isEmpty()) {
+            boolean swapped;
+            do {
+                swapped = false;
+                Film current = head;
+                while (current.next != null) {
+                    if (current.rating < current.next.rating) {
+                        double tempRate = current.rating;
+                        current.rating = current.next.rating;
+                        current.next.rating = tempRate;
+                        
+                        int tempId = current.id;
+                        current.id = current.next.id;
+                        current.next.id = tempId;
+                        
+                        String tempJudul = current.judul;
+                        current.judul = current.next.judul;
+                        current.next.judul = tempJudul;
+                        
+                        swapped = true;
+                    }
+                    current = current.next;
+                }
+            } while (swapped);
+        }
+    }
+}
+```
+
+Class DLLFilmMain
+```java
+package Tugas;
+
+import java.util.Scanner;
+
+public class DLLFilmMain {
+    public static void menu() {
+        System.out.println("===============================");
+        System.out.println("DATA FILM LAYAR LEBAR");
+        System.out.println("===============================");
+        System.out.println("1. Tambah Data Awal");
+        System.out.println("2. Tambah Data Akhir");
+        System.out.println("3. Tambah Data Index Tertentu");
+        System.out.println("4. Hapus Data Pertama");
+        System.out.println("5. Hapus Data Terakhir");
+        System.out.println("6. Hapus Data Tertentu");
+        System.out.println("7. Cetak");
+        System.out.println("8. Cari ID Film");
+        System.out.println("9. Urut Data Rating Film-DESC");
+        System.out.println("10. Keluar");
+        System.out.println("===============================");
+    } 
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        Scanner s = new Scanner(System.in);
+        int id, idx;
+        double rate;
+        String judul;
+
+        DLLFilm listFilm = new DLLFilm();
+
+        short pilih;
+        do {
+            menu();
+            pilih = sc.nextShort();
+            switch (pilih) {
+                case 1:
+                    System.out.println("Masukkan Data Film Posisi Awal");
+                    System.out.println("ID FIlm: ");
+                    id = sc.nextInt();
+                    System.out.println("Judul Film: ");
+                    judul = s.nextLine();
+                    System.out.println("Rating FIlm: ");
+                    rate = sc.nextDouble();
+                    listFilm.addFirst(id, judul, rate);
+                    break;
+                case 2:
+                    System.out.println("Masukkan Data Film Posisi Akhir");
+                    System.out.println("ID FIlm: ");
+                    id = sc.nextInt();
+                    System.out.println("Judul Film: ");
+                    judul = s.nextLine();
+                    System.out.println("Rating FIlm: ");
+                    rate = sc.nextDouble();
+                    listFilm.addLast(id, judul, rate);
+                    break;
+                case 3:
+                    System.out.println("Masukkan Data Film");
+                    System.out.println("Urutan ke- ");
+                    idx = sc.nextInt();
+                    System.out.println("ID FIlm: ");
+                    id = sc.nextInt();
+                    System.out.println("Judul Film: ");
+                    judul = s.nextLine();
+                    System.out.println("Rating FIlm: ");
+                    rate = sc.nextDouble();
+                    listFilm.add(id, judul, rate, idx);
+                    System.out.println("Data Film ini akan masuk di urutan ke-");
+                    System.out.println(idx);
+                    break;
+                case 4:
+                    listFilm.removeFirst();
+                    break;
+                case 5:
+                    listFilm.removeLast();
+                    break;
+                case 6:
+                    System.out.println("Masukkan Urutan Data Film yang ingin dihapus");
+                    idx = sc.nextInt();
+                    listFilm.remove(idx);
+                    break;
+                case 7:
+                    System.out.println("Cetak Data");
+                    listFilm.print();
+                    break;
+                case 8:
+                    System.out.println("Masukkan ID Film yang Anda cari");
+                    int idKey = sc.nextInt();
+                    Film found = listFilm.findFilm(idKey);
+                    int pos = listFilm.findIdx(idKey);
+                    if (found != null) {
+                        System.out.println("Data Id Film: " + idKey + " berada di node ke- " + pos);
+                        System.out.println("IDENTITAS");
+                        System.out.println(" ID Film: " + found.id);
+                        System.out.println(" Judul Film: " + found.judul);
+                        System.out.println(" IMDB Rating: " + found.rating);
+                    } else {
+                        System.out.println("Film dengan ID " + idKey + "tidak ada di dalam list!");
+                    }
+                    break;
+                case 9:   
+                    listFilm.sortDesc();
+                    listFilm.print();
+                    break;
+                case 10:
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Menu yang Anda masukkan tidak valid!");
+                    break;
+            }
+        } while (pilih <= 10 && pilih > 0);
+    }
+}
+```
+
+Output<br>
+Menu Awal dan Penambahan Data<br>
+![alt text](docs/img/OPT2.1.png)
+
+![alt text](docs/img/OPT2.2.png)
+
+Cetak Data<br>
+![alt text](docs/img/OPT2.3.png)
+
+Pencarian Data<br>
+![alt text](docs/img/OPT2.4.png)

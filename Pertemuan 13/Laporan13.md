@@ -927,4 +927,4 @@ Cetak Data<br>
 ![alt text](docs/img/OPT2.3.png)
 
 Pencarian Data<br>
-![alt text](docs/img/OPT2.4.png)
+![alt text](docs/img/OPT2.4.png) 

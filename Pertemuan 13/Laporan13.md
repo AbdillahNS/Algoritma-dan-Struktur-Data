@@ -1,4 +1,4 @@
-ALGORITMA DAN STRUKTUR DATA </p>
+# <p align ="center"> LAPORAN PRAKTIKUM ALGORITMA DAN STRUKTUR DATA </p>
 
 <br><br><br><br>
 
@@ -11,7 +11,6 @@ ALGORITMA DAN STRUKTUR DATA </p>
 <p align = "center"> NIM   : 2341720018 </p>
 <p align = "center"> Prodi : TEKNIK INFOMATIKA</p>
 <p align = "center"> Kelas : 1B </p>
-<p align = "center"> Absen : 01 </p>
 
 ## Jobsheet 13
 
